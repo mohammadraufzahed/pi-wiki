@@ -1,0 +1,17 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+
+jobs:
+  typecheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm i --no-save typescript @earendil-works/pi-coding-agent typebox
+      - run: npx tsc --noEmit --strict --skipLibCheck --module nodenext --moduleResolution nodenext --target esnext --allowImportingTsExtensions extensions/index.ts
