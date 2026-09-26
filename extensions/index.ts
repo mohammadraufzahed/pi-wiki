@@ -88,7 +88,7 @@ export default function piWiki(pi: ExtensionAPI) {
 			const hits: string[] = [];
 			for (const f of readdirSync(DIR).filter((f) => f.endsWith(".md"))) {
 				const src = readFileSync(join(DIR, f), "utf-8");
-				if (src.toLowerCase().includes(p.query.toLowerCase()) || f.includes(p.query)) {
+				if (src.toLowerCase().includes(p.query.toLowerCase()) || f.toLowerCase().includes(p.query.toLowerCase())) {
 					const line = src.split("\n").find((l) =>
 						l.toLowerCase().includes(p.query.toLowerCase()),
 					);
