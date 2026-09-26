@@ -34,7 +34,7 @@ export default function piWiki(pi: ExtensionAPI) {
 			topic: Type.String({ description: "page name" }),
 			content: Type.String(),
 		}),
-		async execute(_id, p) {
+		async execute(_id, p, _signal, _onUpdate, _ctx) {
 			mkdirSync(DIR, { recursive: true });
 			writeFileSync(page(p.topic), p.content);
 			return {
@@ -52,7 +52,7 @@ export default function piWiki(pi: ExtensionAPI) {
 		label: "Wiki Read",
 		description: "Read a wiki page by topic.",
 		parameters: Type.Object({ topic: Type.String() }),
-		async execute(_id, p) {
+		async execute(_id, p, _signal, _onUpdate, _ctx) {
 			const f = page(p.topic);
 			if (!existsSync(f))
 				return { content: [{ type: "text" as const, text: `(no page '${p.topic}')` }], details: null };
@@ -68,7 +68,7 @@ export default function piWiki(pi: ExtensionAPI) {
 		label: "Wiki List",
 		description: "List all wiki pages.",
 		parameters: Type.Object({}),
-		async execute() {
+		async execute(_id, _p, _signal, _onUpdate, _ctx) {
 			mkdirSync(DIR, { recursive: true });
 			const pages = readdirSync(DIR).filter((f) => f.endsWith(".md"));
 			return {
@@ -86,7 +86,7 @@ export default function piWiki(pi: ExtensionAPI) {
 		label: "Wiki Search",
 		description: "Full-text search across all wiki pages.",
 		parameters: Type.Object({ query: Type.String() }),
-		async execute(_id, p) {
+		async execute(_id, p, _signal, _onUpdate, _ctx) {
 			mkdirSync(DIR, { recursive: true });
 			const hits: string[] = [];
 			for (const f of readdirSync(DIR).filter((f) => f.endsWith(".md"))) {
