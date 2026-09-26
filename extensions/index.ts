@@ -42,6 +42,7 @@ export default function piWiki(pi: ExtensionAPI) {
 					type: "text" as const,
 					text: `wiki page '${p.topic}' saved`,
 				}],
+				details: null,
 			};
 		},
 	});
@@ -54,9 +55,10 @@ export default function piWiki(pi: ExtensionAPI) {
 		async execute(_id, p) {
 			const f = page(p.topic);
 			if (!existsSync(f))
-				return { content: [{ type: "text" as const, text: `(no page '${p.topic}')` }] };
+				return { content: [{ type: "text" as const, text: `(no page '${p.topic}')` }], details: null };
 			return {
 				content: [{ type: "text" as const, text: readFileSync(f, "utf-8") }],
+				details: null,
 			};
 		},
 	});
@@ -74,6 +76,7 @@ export default function piWiki(pi: ExtensionAPI) {
 					type: "text" as const,
 					text: pages.length ? pages.join("\n") : "(empty wiki)",
 				}],
+				details: null,
 			};
 		},
 	});
@@ -100,6 +103,7 @@ export default function piWiki(pi: ExtensionAPI) {
 					type: "text" as const,
 					text: hits.length ? hits.join("\n") : `(no matches for '${p.query}')`,
 				}],
+				details: null,
 			};
 		},
 	});
