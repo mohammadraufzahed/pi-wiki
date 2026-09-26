@@ -14,4 +14,4 @@ jobs:
         with:
           node-version: 22
       - run: npm i --no-save typescript @earendil-works/pi-coding-agent typebox
-      - run: npx tsc --noEmit --strict --skipLibCheck --module nodenext --moduleResolution nodenext --target esnext --allowImportingTsExtensions extensions/index.ts
+      - run: ./node_modules/.bin/tsc --noEmit --strict --skipLibCheck --module nodenext --moduleResolution nodenext --target esnext --allowImportingTsExtensions extensions/index.ts
