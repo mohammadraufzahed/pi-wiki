@@ -1,9 +1,9 @@
 name: CI
 
 on:
-  push:
-    branches: [main]
   pull_request:
+  push:
+    branches: [master]
 
 jobs:
   typecheck:
@@ -13,5 +13,5 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: npm install --legacy-peer-deps
-      - run: npx tsc --noEmit
+      - run: npm i --no-save typescript @earendil-works/pi-coding-agent typebox
+      - run: ./node_modules/.bin/tsc --noEmit --strict --skipLibCheck --module nodenext --moduleResolution nodenext --target esnext --allowImportingTsExtensions extensions/index.ts
